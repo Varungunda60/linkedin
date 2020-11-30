@@ -50,15 +50,4 @@ public class Experience {
     @JsonBackReference
     private User user;
 
-    public Experience(String title, String headline, Date startDate, Date endDate,
-                      String employmentType) {
-        super();
-        this.title = title;
-        this.headline = headline;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.employmentType = employmentType;
-
-    }
-
 }

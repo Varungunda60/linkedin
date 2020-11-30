@@ -39,6 +39,7 @@ public class Education {
 
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date StartDate;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date EndDate;
 
     private Integer grade;
@@ -47,8 +48,4 @@ public class Education {
     @JoinColumn(name = "user_id", nullable = false)
     @JsonBackReference
     private User user;
-
-
-
-
 }
