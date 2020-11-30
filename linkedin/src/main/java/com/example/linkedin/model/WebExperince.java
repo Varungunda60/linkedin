@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
 
@@ -21,6 +23,8 @@ public class WebExperince {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
     private String employmentType;
+    @NonNull
+    @NotNull
     private Company company;
     private User user;
 

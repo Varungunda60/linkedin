@@ -4,10 +4,12 @@ import com.example.linkedin.entity.Education;
 import com.example.linkedin.entity.Experience;
 import com.example.linkedin.entity.Skills;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
 
+@Data
 public class WebUser {
     private String name;
     private String password;
