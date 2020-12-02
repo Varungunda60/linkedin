@@ -1,5 +1,6 @@
 package com.example.linkedin.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -39,17 +40,17 @@ public class User{
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference(value="experienceInUser")
     private List<Experience> experience;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference(value = "educationInUser")
     private List<Education> education;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference(value = "skillsInUser")
     private List<Skills> skills;
 
 }

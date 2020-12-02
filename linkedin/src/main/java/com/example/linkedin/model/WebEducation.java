@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.sql.Date;
 
 @Data
 @NoArgsConstructor
@@ -17,13 +15,7 @@ public class WebEducation {
     private String schoolName;
     private String degree;
     private String feildOfStudy;
-
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private Date StartDate;
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private Date EndDate;
-
+    private String startDate;
+    private String endDate;
     private Integer grade;
-    private User user;
-
 }

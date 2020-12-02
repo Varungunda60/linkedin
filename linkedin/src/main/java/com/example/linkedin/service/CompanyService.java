@@ -4,6 +4,7 @@ import com.example.linkedin.entity.Company;
 import com.example.linkedin.entity.Education;
 import com.example.linkedin.entity.Experience;
 import com.example.linkedin.model.WebCompany;
+import com.example.linkedin.model.WebExperience;
 import com.example.linkedin.repository.CompanyRepositry;
 import com.example.linkedin.repository.UserRepositry;
 import lombok.Lombok;
@@ -21,13 +22,13 @@ public class CompanyService {
     @Autowired
     private UserRepositry userRepositry;
 
-    public void saveCompany(@org.jetbrains.annotations.NotNull WebCompany webCompany){
+    public Company saveCompany(@org.jetbrains.annotations.NotNull WebCompany webCompany){
         Company company=new Company();
-        company.setExperiences(webCompany.getExperiences());
         company.setIndustryType(webCompany.getIndustryType());
         company.setLocation(webCompany.getLocation());
         company.setName(webCompany.getName());
         companyRepositry.save(company);
+        return company;
     }
     public List<Company> getAllCompanies(Long id){
         List<Company> companies=new ArrayList<Company>();

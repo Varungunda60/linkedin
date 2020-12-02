@@ -10,5 +10,4 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class WebSkills {
     private String skillName;
-    private User user;
 }

@@ -1,12 +1,8 @@
 package com.example.linkedin.model;
 
-import com.example.linkedin.entity.Education;
-import com.example.linkedin.entity.Experience;
-import com.example.linkedin.entity.Skills;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Data;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Data
@@ -15,10 +11,13 @@ public class WebUser {
     private String password;
     private String fName;
     private String lName;
-    private String TagLine;
-    private String BackgroundUrl;
-    private String Url;
-    private List<Experience> experience;
-    private List<Education> education;
-    private List<Skills> skills;
+    private String tagLine;
+    private String backgroundUrl;
+    private String url;
+    @JsonAlias("experience")
+    private List<WebExperience> webExperiences;
+    @JsonAlias("education")
+    private List<WebEducation> webEducations;
+    @JsonAlias("skills")
+    private List<WebSkills> webSkills;
 }

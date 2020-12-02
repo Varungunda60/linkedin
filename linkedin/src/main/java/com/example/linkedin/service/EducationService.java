@@ -16,10 +16,10 @@ public class EducationService {
     private EducationRepositry educationRepositry;
 
     @Autowired
-    private UserRepositry userRepositry;
-    public void addEducation(Long id,WebEducation webEducation){
+    private UserService userService;
+    public void saveEducation(Long id,WebEducation webEducation){
         Education education=new Education();
-        User user= userRepositry.findById(id).get();
+        User user= userService.getUser(id);
         education.setUser(user);
         education.setDegree(webEducation.getDegree());
         education.setEndDate(webEducation.getEndDate());
@@ -31,6 +31,6 @@ public class EducationService {
     }
 
     public List<Education> getEducationList(Long id){
-        return userRepositry.findById(id).get().getEducation();
+        return userService.getUser(id).getEducation();
     }
 }

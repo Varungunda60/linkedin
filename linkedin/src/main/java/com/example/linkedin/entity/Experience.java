@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,21 +34,17 @@ public class Experience {
 
     private String title;
     private String headline;
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date startDate;
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date endDate;
+    private String startDate;
+    private String endDate;
     private String employmentType;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="company_id")
-    @JsonBackReference
     private Company company;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="UserId",nullable=false)
-    @JsonBackReference
     private User user;
 
 }

@@ -1,7 +1,9 @@
 package com.example.linkedin.service;
 
 import com.example.linkedin.entity.User;
-import com.example.linkedin.model.WebExperince;
+import com.example.linkedin.model.WebEducation;
+import com.example.linkedin.model.WebExperience;
+import com.example.linkedin.model.WebSkills;
 import com.example.linkedin.model.WebUser;
 import com.example.linkedin.repository.UserRepositry;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,24 +16,52 @@ public class UserService {
     @Autowired
     private UserRepositry userRepositry;
 
-    public void addUser(WebUser webUser){
-        User user=new User();
-        user.setBackgroundUrl(webUser.getBackgroundUrl());
-        user.setEducation(webUser.getEducation());
-        user.setExperience(webUser.getExperience());
-        user.setFName(webUser.getFName());
-        user.setLName(webUser.getLName());
-        user.setName(webUser.getName());
-        user.setPassword(webUser.getPassword());
-        user.setSkills(webUser.getSkills());
-        user.setTagLine(webUser.getTagLine());
-        user.setUrl(webUser.getUrl());
+    @Autowired
+    private SkillsService skillsService;
 
-        userRepositry.save(user);
+    @Autowired
+    private EducationService educationService;
+
+    @Autowired
+    private ExperienceService experienceService;
+
+    public void saveUser(WebUser webUser) {
+        User user = new User();
+        user.setUrl(webUser.getUrl());
+        user.setTagLine(webUser.getTagLine());
+        user.setPassword(webUser.getPassword());
+        user.setName(webUser.getName());
+        user.setLName(webUser.getLName());
+        user.setFName(webUser.getFName());
+        user.setBackgroundUrl(webUser.getBackgroundUrl());
+        user = userRepositry.save(user);
+        userRepositry.flush();
+        if (webUser.getWebEducations() != null) {
+            for (WebEducation webEducation : webUser.getWebEducations()) {
+                educationService.saveEducation(user.getId(), webEducation);
+            }
+        }
+
+        if (webUser.getWebExperiences() != null) {
+            for (WebExperience webExperience : webUser.getWebExperiences()) {
+                experienceService.saveExperience(user.getId(), webExperience);
+            }
+        }
+
+        if (webUser.getWebSkills() != null) {
+            for (WebSkills webSkills : webUser.getWebSkills()) {
+                skillsService.saveSkills(user.getId(), webSkills);
+            }
+        }
     }
 
-    public User getUser(Long  id){
+    public User getUser(Long id) {
         return userRepositry.findById(id).get();
     }
+
+    public List<User> getAllUsers() {
+        return userRepositry.findAll();
+    }
+
 
 }

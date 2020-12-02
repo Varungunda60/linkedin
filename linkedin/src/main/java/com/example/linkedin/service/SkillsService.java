@@ -17,7 +17,7 @@ public class SkillsService {
     @Autowired
     private UserRepositry userRepositry;
 
-    public void addSkills(Long id,WebSkills webSkills){
+    public void saveSkills(Long id,WebSkills webSkills){
         User user=userRepositry.findById(id).get();
         Skills skills=new Skills();
         skills.setSkillName(webSkills.getSkillName());
