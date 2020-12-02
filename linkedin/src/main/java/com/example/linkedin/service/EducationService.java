@@ -23,7 +23,7 @@ public class EducationService {
         education.setUser(user);
         education.setDegree(webEducation.getDegree());
         education.setEndDate(webEducation.getEndDate());
-        education.setFeildOfStudy(webEducation.getFeildOfStudy());
+        education.setFieldOfStudy(webEducation.getFieldOfStudy());
         education.setGrade(webEducation.getGrade());
         education.setSchoolName(webEducation.getSchoolName());
         education.setStartDate(webEducation.getStartDate());

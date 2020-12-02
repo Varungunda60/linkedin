@@ -38,13 +38,14 @@ public class Experience {
     private String endDate;
     private String employmentType;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="company_id")
     private Company company;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="UserId",nullable=false)
+    @JsonBackReference
     private User user;
 
 }

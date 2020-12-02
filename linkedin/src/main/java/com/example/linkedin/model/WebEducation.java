@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class WebEducation {
     private String schoolName;
     private String degree;
-    private String feildOfStudy;
+    private String fieldOfStudy;
     private String startDate;
     private String endDate;
     private Integer grade;

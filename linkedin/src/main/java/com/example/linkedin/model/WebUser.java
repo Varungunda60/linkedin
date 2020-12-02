@@ -9,8 +9,8 @@ import java.util.List;
 public class WebUser {
     private String name;
     private String password;
-    private String fName;
-    private String lName;
+    private String firstName;
+    private String lastName;
     private String tagLine;
     private String backgroundUrl;
     private String url;

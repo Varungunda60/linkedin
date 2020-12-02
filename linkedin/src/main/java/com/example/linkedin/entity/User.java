@@ -26,10 +26,10 @@ public class User{
     private String password;
 
     @Column(nullable=false)
-    private String fName;
+    private String firstName;
 
     @Column(nullable=false)
-    private String lName;
+    private String lastName;
 
     private String TagLine;
 

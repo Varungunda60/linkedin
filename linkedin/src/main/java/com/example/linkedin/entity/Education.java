@@ -26,7 +26,7 @@ public class Education {
     private String degree;
 
     @Column(nullable = false)
-    private String feildOfStudy;
+    private String fieldOfStudy;
     private String StartDate;
     private String EndDate;
 
@@ -34,5 +34,6 @@ public class Education {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private User user;
 }

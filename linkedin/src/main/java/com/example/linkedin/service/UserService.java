@@ -31,8 +31,8 @@ public class UserService {
         user.setTagLine(webUser.getTagLine());
         user.setPassword(webUser.getPassword());
         user.setName(webUser.getName());
-        user.setLName(webUser.getLName());
-        user.setFName(webUser.getFName());
+        user.setLastName(webUser.getLastName());
+        user.setFirstName(webUser.getFirstName());
         user.setBackgroundUrl(webUser.getBackgroundUrl());
         user = userRepositry.save(user);
         userRepositry.flush();
