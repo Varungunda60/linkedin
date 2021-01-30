@@ -54,6 +54,18 @@ public class UserService {
             }
         }
     }
+//    public void saveUser(WebUser webUser) {
+//        User user = new User();
+//        user.setUrl(webUser.getUrl());
+//        user.setTagLine(webUser.getTagLine());
+//        user.setPassword(webUser.getPassword());
+//        user.setName(webUser.getName());
+//        user.setLastName(webUser.getLastName());
+//        user.setFirstName(webUser.getFirstName());
+//        user.setBackgroundUrl(webUser.getBackgroundUrl());
+//        user = userRepositry.save(user);
+//        userRepositry.flush();
+//    }
 
     public User getUser(Long id) {
         return userRepositry.findById(id).get();
@@ -63,5 +75,5 @@ public class UserService {
         return userRepositry.findAll();
     }
 
-
+    public List<User> deleteUser(Long id){ userRepositry.deleteById(id);return userRepositry.findAll(); }
 }

@@ -12,6 +12,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class UserController {
 
@@ -34,5 +35,10 @@ public class UserController {
         UriComponents uriComponents=uriComponentsBuilder.path("/user/{id}").build();
         URI location = uriComponents.toUri();
         return ResponseEntity.created(location).build();
+    }
+
+    @DeleteMapping("/user/{id}")
+    public List<User> deleteUserById(@PathVariable Long id){
+        return userService.deleteUser(id);
     }
 }

@@ -23,6 +23,10 @@ public class EducationController {
         educationService.saveEducation(id, webEducation);
     }
 
+    @DeleteMapping("user/education/{id}")
+    public void DeleteEducation(@PathVariable Long id){
+        educationService.DeleteEducation(id);
+    }
     @GetMapping("user/education/{id}")
     public List<Education> getEducation(@PathVariable Long id) {
         return userService.getUser(id).getEducation();

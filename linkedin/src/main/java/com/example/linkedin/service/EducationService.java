@@ -29,7 +29,9 @@ public class EducationService {
         education.setStartDate(webEducation.getStartDate());
         educationRepositry.save(education);
     }
-
+    public void DeleteEducation(Long id){
+        educationRepositry.deleteById(id);
+    }
     public List<Education> getEducationList(Long id){
         return userService.getUser(id).getEducation();
     }
