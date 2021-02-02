@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -54,26 +55,56 @@ public class UserService {
             }
         }
     }
-//    public void saveUser(WebUser webUser) {
-//        User user = new User();
-//        user.setUrl(webUser.getUrl());
-//        user.setTagLine(webUser.getTagLine());
-//        user.setPassword(webUser.getPassword());
-//        user.setName(webUser.getName());
-//        user.setLastName(webUser.getLastName());
-//        user.setFirstName(webUser.getFirstName());
-//        user.setBackgroundUrl(webUser.getBackgroundUrl());
-//        user = userRepositry.save(user);
-//        userRepositry.flush();
-//    }
 
     public User getUser(Long id) {
-        return userRepositry.findById(id).get();
+        if (userRepositry.findById(id).isPresent()) {
+            return userRepositry.findById(id).get();
+        } else {
+            return null;
+        }
     }
 
     public List<User> getAllUsers() {
         return userRepositry.findAll();
     }
 
-    public List<User> deleteUser(Long id){ userRepositry.deleteById(id);return userRepositry.findAll(); }
+    public void deleteUser(Long id) {
+        userRepositry.deleteById(id);
+    }
+
+    public void updateUser(WebUser webUser, Long id) {
+        if (userRepositry.findById(id).isPresent()) {
+            User user = userRepositry.findById(id).get();
+            user.setId(id);
+            user.setUrl(webUser.getUrl());
+            user.setTagLine(webUser.getTagLine());
+            user.setPassword(webUser.getPassword());
+            user.setName(webUser.getName());
+            user.setLastName(webUser.getLastName());
+            user.setFirstName(webUser.getFirstName());
+            user.setBackgroundUrl(webUser.getBackgroundUrl());
+            user = userRepositry.save(user);
+            userRepositry.flush();
+            if (webUser.getWebEducations() != null) {
+                for (WebEducation webEducation : webUser.getWebEducations()) {
+                    educationService.saveEducation(user.getId(), webEducation);
+                }
+            }
+
+            if (webUser.getWebExperiences() != null) {
+                for (WebExperience webExperience : webUser.getWebExperiences()) {
+                    experienceService.saveExperience(user.getId(), webExperience);
+                }
+            }
+
+            if (webUser.getWebSkills() != null) {
+                for (WebSkills webSkills : webUser.getWebSkills()) {
+                    skillsService.saveSkills(user.getId(), webSkills);
+                }
+            }
+            userRepositry.save(user);
+        }
+
+
+    }
 }
