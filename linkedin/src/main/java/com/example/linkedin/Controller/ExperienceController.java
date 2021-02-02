@@ -19,12 +19,21 @@ public class ExperienceController {
     private UserService userService;
 
     @PostMapping("/user/Experience/{id}")
-    public void saveExperience(@PathVariable Long id, @RequestBody WebExperience webExperience){
-        experienceService.saveExperience(id,webExperience);
+    public void saveExperience(@PathVariable Long id, @RequestBody WebExperience webExperience) {
+        experienceService.saveExperience(id, webExperience);
     }
+
     @GetMapping("/user/Experience/{id}")
-    public List<Experience> getExperience(@PathVariable Long id){
+    public List<Experience> getExperience(@PathVariable Long id) {
         return userService.getUser(id).getExperience();
     }
 
+    @PutMapping("/user/Experience/{userId}/{experienceId}")
+    public void updateExpereince(@PathVariable Long userId,@PathVariable Long experienceId, @RequestBody WebExperience webExperience) {
+        experienceService.updateExperience(userId,experienceId, webExperience);
+    }
+    @DeleteMapping("/user/Experience/{id}")
+    public void DeleteExperience(@PathVariable Long id) {
+        experienceService.deleteExperience(id);
+    }
 }

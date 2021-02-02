@@ -4,9 +4,8 @@ import com.example.linkedin.entity.Company;
 import com.example.linkedin.entity.Experience;
 import com.example.linkedin.entity.User;
 import com.example.linkedin.model.WebExperience;
-import com.example.linkedin.repository.CompanyRepositry;
-import com.example.linkedin.repository.ExperienceRepositry;
-import com.example.linkedin.repository.UserRepositry;
+import com.example.linkedin.repository.ExperienceRepository;
+import com.example.linkedin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,25 +13,54 @@ import org.springframework.stereotype.Service;
 public class ExperienceService {
 
     @Autowired
-    private ExperienceRepositry experienceRepositry;
+    private ExperienceRepository experienceRepository;
     @Autowired
-    private UserRepositry userRepositry;
+    private UserRepository userRepository;
 
     @Autowired
     private CompanyService companyService;
 
-    public void saveExperience(Long id, WebExperience webExperience){
-        User user= userRepositry.findById(id).get();
-        Experience experience = new Experience();
-        experience.setUser(user);
-        experience.setTitle(webExperience.getTitle());
-        experience.setStartDate(webExperience.getStartDate());
-        experience.setEndDate(webExperience.getEndDate());
-        experience.setHeadline(webExperience.getHeadline());
-        experience.setEmploymentType(webExperience.getEmploymentType());
-        experience.setStartDate(webExperience.getStartDate());
-        experience.setCompany(companyService.saveCompany(webExperience.getWebCompany()));
-        experienceRepositry.save(experience);
+    public void saveExperience(Long id, WebExperience webExperience) {
+        if (userRepository.findById(id).isPresent()) {
+            User user = userRepository.findById(id).get();
+            Experience experience = new Experience();
+            experience.setUser(user);
+            experience.setTitle(webExperience.getTitle());
+            experience.setStartDate(webExperience.getStartDate());
+            experience.setEndDate(webExperience.getEndDate());
+            experience.setHeadline(webExperience.getHeadline());
+            experience.setEmploymentType(webExperience.getEmploymentType());
+            experience.setStartDate(webExperience.getStartDate());
+            experience.setCompany(companyService.saveCompany(webExperience.getWebCompany()));
+            experienceRepository.save(experience);
 
+        }
+
+    }
+
+    public void deleteExperience(Long id) {
+        experienceRepository.deleteById(id);
+    }
+
+    public void updateExperience(Long userId, Long experienceId, WebExperience webExperience) {
+        if (userRepository.findById(userId).isPresent()) {
+            User user = userRepository.findById(userId).get();
+            if (experienceRepository.findById(experienceId).isPresent()) {
+                Experience experience = experienceRepository.findById(experienceId).get();
+                experience.setUser(user);
+                experience.setTitle(webExperience.getTitle());
+                experience.setStartDate(webExperience.getStartDate());
+                experience.setEndDate(webExperience.getEndDate());
+                experience.setHeadline(webExperience.getHeadline());
+                experience.setEmploymentType(webExperience.getEmploymentType());
+                experience.setStartDate(webExperience.getStartDate());
+                Company company = experience.getCompany();
+                company.setIndustryType(webExperience.getWebCompany().getIndustryType());
+                company.setLocation(webExperience.getWebCompany().getLocation());
+                company.setName(webExperience.getWebCompany().getName());
+                experience.setCompany(companyService.saveCompany(webExperience.getWebCompany()));
+                experienceRepository.save(experience);
+            }
+        }
     }
 }

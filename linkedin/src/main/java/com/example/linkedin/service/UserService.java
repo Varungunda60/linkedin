@@ -5,17 +5,16 @@ import com.example.linkedin.model.WebEducation;
 import com.example.linkedin.model.WebExperience;
 import com.example.linkedin.model.WebSkills;
 import com.example.linkedin.model.WebUser;
-import com.example.linkedin.repository.UserRepositry;
+import com.example.linkedin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
     @Autowired
-    private UserRepositry userRepositry;
+    private UserRepository userRepository;
 
     @Autowired
     private SkillsService skillsService;
@@ -35,8 +34,8 @@ public class UserService {
         user.setLastName(webUser.getLastName());
         user.setFirstName(webUser.getFirstName());
         user.setBackgroundUrl(webUser.getBackgroundUrl());
-        user = userRepositry.save(user);
-        userRepositry.flush();
+        user = userRepository.save(user);
+        userRepository.flush();
         if (webUser.getWebEducations() != null) {
             for (WebEducation webEducation : webUser.getWebEducations()) {
                 educationService.saveEducation(user.getId(), webEducation);
@@ -57,24 +56,24 @@ public class UserService {
     }
 
     public User getUser(Long id) {
-        if (userRepositry.findById(id).isPresent()) {
-            return userRepositry.findById(id).get();
+        if (userRepository.findById(id).isPresent()) {
+            return userRepository.findById(id).get();
         } else {
             return null;
         }
     }
 
     public List<User> getAllUsers() {
-        return userRepositry.findAll();
+        return userRepository.findAll();
     }
 
     public void deleteUser(Long id) {
-        userRepositry.deleteById(id);
+        userRepository.deleteById(id);
     }
-
+    //change save education to update education
     public void updateUser(WebUser webUser, Long id) {
-        if (userRepositry.findById(id).isPresent()) {
-            User user = userRepositry.findById(id).get();
+        if (userRepository.findById(id).isPresent()) {
+            User user = userRepository.findById(id).get();
             user.setId(id);
             user.setUrl(webUser.getUrl());
             user.setTagLine(webUser.getTagLine());
@@ -83,8 +82,8 @@ public class UserService {
             user.setLastName(webUser.getLastName());
             user.setFirstName(webUser.getFirstName());
             user.setBackgroundUrl(webUser.getBackgroundUrl());
-            user = userRepositry.save(user);
-            userRepositry.flush();
+            user = userRepository.save(user);
+            userRepository.flush();
             if (webUser.getWebEducations() != null) {
                 for (WebEducation webEducation : webUser.getWebEducations()) {
                     educationService.saveEducation(user.getId(), webEducation);
@@ -102,9 +101,8 @@ public class UserService {
                     skillsService.saveSkills(user.getId(), webSkills);
                 }
             }
-            userRepositry.save(user);
+            userRepository.save(user);
         }
-
 
     }
 }

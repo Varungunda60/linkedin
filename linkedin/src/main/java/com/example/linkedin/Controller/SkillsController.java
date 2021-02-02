@@ -1,7 +1,6 @@
 package com.example.linkedin.Controller;
 
 import com.example.linkedin.entity.Skills;
-import com.example.linkedin.model.WebExperience;
 import com.example.linkedin.model.WebSkills;
 import com.example.linkedin.service.SkillsService;
 import com.example.linkedin.service.UserService;
@@ -27,6 +26,11 @@ public class SkillsController {
     @GetMapping("/user/Skills/{id}")
     public List<Skills> getSkills(@PathVariable Long id){
         return userService.getUser(id).getSkills();
+    }
+
+    @PutMapping("/user/Skills/{userId}/{skillId}")
+    public void putSkills(@PathVariable Long userId,@PathVariable Long skillId, @RequestBody WebSkills webSkills){
+        skillsService.updateSkills(userId,skillId,webSkills);
     }
 
 }
