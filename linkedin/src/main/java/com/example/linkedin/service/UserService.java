@@ -70,7 +70,6 @@ public class UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
-    //change save education to update education
     public void updateUser(WebUser webUser, Long id) {
         if (userRepository.findById(id).isPresent()) {
             User user = userRepository.findById(id).get();
@@ -82,25 +81,6 @@ public class UserService {
             user.setLastName(webUser.getLastName());
             user.setFirstName(webUser.getFirstName());
             user.setBackgroundUrl(webUser.getBackgroundUrl());
-            user = userRepository.save(user);
-            userRepository.flush();
-            if (webUser.getWebEducations() != null) {
-                for (WebEducation webEducation : webUser.getWebEducations()) {
-                    educationService.saveEducation(user.getId(), webEducation);
-                }
-            }
-
-            if (webUser.getWebExperiences() != null) {
-                for (WebExperience webExperience : webUser.getWebExperiences()) {
-                    experienceService.saveExperience(user.getId(), webExperience);
-                }
-            }
-
-            if (webUser.getWebSkills() != null) {
-                for (WebSkills webSkills : webUser.getWebSkills()) {
-                    skillsService.saveSkills(user.getId(), webSkills);
-                }
-            }
             userRepository.save(user);
         }
 

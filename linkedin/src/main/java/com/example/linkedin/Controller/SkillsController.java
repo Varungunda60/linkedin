@@ -28,9 +28,9 @@ public class SkillsController {
         return userService.getUser(id).getSkills();
     }
 
-    @PutMapping("/user/Skills/{userId}/{skillId}")
-    public void putSkills(@PathVariable Long userId,@PathVariable Long skillId, @RequestBody WebSkills webSkills){
-        skillsService.updateSkills(userId,skillId,webSkills);
+    @PutMapping("/user/Skills/{skillId}")
+    public void putSkills(@PathVariable Long skillId, @RequestBody WebSkills webSkills){
+        skillsService.updateSkills(skillId,webSkills);
     }
 
 }

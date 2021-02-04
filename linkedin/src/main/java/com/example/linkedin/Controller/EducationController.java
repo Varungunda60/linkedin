@@ -22,9 +22,9 @@ public class EducationController {
     public void saveEducation(@PathVariable Long id, @RequestBody WebEducation webEducation) {
         educationService.saveEducation(id, webEducation);
     }
-    @PutMapping("user/education/{userId}/{educationId}")
-    public void updateEducation(@PathVariable Long userId,@PathVariable Long educationId, @RequestBody WebEducation webEducation) {
-        educationService.updateEducation(userId,educationId, webEducation);
+    @PutMapping("user/education/{educationId}")
+    public void updateEducation(@PathVariable Long educationId, @RequestBody WebEducation webEducation) {
+        educationService.updateEducation(educationId, webEducation);
     }
     @DeleteMapping("user/education/{id}")
     public void DeleteEducation(@PathVariable Long id){

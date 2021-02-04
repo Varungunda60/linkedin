@@ -37,7 +37,5 @@ public class CompanyService {
             return companies;
         }
         return null;
-
-
     }
 }

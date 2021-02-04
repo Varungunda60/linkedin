@@ -31,14 +31,10 @@ public class EducationService {
     public void DeleteEducation(Long id){
         educationRepository.deleteById(id);
     }
-    public List<Education> getEducationList(Long id){
-        return userService.getUser(id).getEducation();
-    }
-    public void updateEducation(Long userId,Long companyId,WebEducation webEducation){
-        if(educationRepository.findById(companyId).isPresent()){
-            Education education=new Education();
-            User user= userService.getUser(userId);
-            education.setUser(user);
+
+    public void updateEducation(Long educationId,WebEducation webEducation){
+        if(educationRepository.findById(educationId).isPresent()){
+            Education education=educationRepository.findById(educationId).get();
             education.setDegree(webEducation.getDegree());
             education.setEndDate(webEducation.getEndDate());
             education.setFieldOfStudy(webEducation.getFieldOfStudy());

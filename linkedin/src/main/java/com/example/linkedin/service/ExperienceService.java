@@ -4,6 +4,7 @@ import com.example.linkedin.entity.Company;
 import com.example.linkedin.entity.Experience;
 import com.example.linkedin.entity.User;
 import com.example.linkedin.model.WebExperience;
+import com.example.linkedin.repository.CompanyRepository;
 import com.example.linkedin.repository.ExperienceRepository;
 import com.example.linkedin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class ExperienceService {
     private ExperienceRepository experienceRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private CompanyRepository companyRepository;
 
     @Autowired
     private CompanyService companyService;
@@ -42,12 +45,9 @@ public class ExperienceService {
         experienceRepository.deleteById(id);
     }
 
-    public void updateExperience(Long userId, Long experienceId, WebExperience webExperience) {
-        if (userRepository.findById(userId).isPresent()) {
-            User user = userRepository.findById(userId).get();
+    public void updateExperience(Long experienceId, WebExperience webExperience) {
             if (experienceRepository.findById(experienceId).isPresent()) {
                 Experience experience = experienceRepository.findById(experienceId).get();
-                experience.setUser(user);
                 experience.setTitle(webExperience.getTitle());
                 experience.setStartDate(webExperience.getStartDate());
                 experience.setEndDate(webExperience.getEndDate());
@@ -58,9 +58,9 @@ public class ExperienceService {
                 company.setIndustryType(webExperience.getWebCompany().getIndustryType());
                 company.setLocation(webExperience.getWebCompany().getLocation());
                 company.setName(webExperience.getWebCompany().getName());
-                experience.setCompany(companyService.saveCompany(webExperience.getWebCompany()));
+                companyRepository.save(company);
                 experienceRepository.save(experience);
             }
         }
-    }
+
 }

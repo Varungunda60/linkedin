@@ -18,7 +18,7 @@ public class SkillsService {
     private UserRepository userRepository;
 
     public void saveSkills(Long id, WebSkills webSkills) {
-        if(userRepository.findById(id).isPresent()){
+        if (userRepository.findById(id).isPresent()) {
             User user = userRepository.findById(id).get();
             Skills skills = new Skills();
             skills.setSkillName(webSkills.getSkillName());
@@ -28,16 +28,15 @@ public class SkillsService {
 
     }
 
-
-    public void updateSkills(Long userId, Long skillId, WebSkills webSkills) {
+    public  void deleteSkill(Long skillId){
+        skillsRepository.deleteById(skillId);
+    }
+    public void updateSkills(Long skillId, WebSkills webSkills) {
         if (skillsRepository.findById(skillId).isPresent()) {
-            if (userRepository.findById(userId).isPresent()) {
-                User user = userRepository.findById(userId).get();
-                Skills skills = skillsRepository.findById(skillId).get();
-                skills.setSkillName(webSkills.getSkillName());
-                skills.setUser(user);
-                skillsRepository.save(skills);
-            }
+            Skills skills = skillsRepository.findById(skillId).get();
+            skills.setSkillName(webSkills.getSkillName());
+            skillsRepository.save(skills);
         }
     }
 }
+

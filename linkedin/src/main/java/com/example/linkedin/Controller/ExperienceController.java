@@ -28,9 +28,9 @@ public class ExperienceController {
         return userService.getUser(id).getExperience();
     }
 
-    @PutMapping("/user/Experience/{userId}/{experienceId}")
-    public void updateExpereince(@PathVariable Long userId,@PathVariable Long experienceId, @RequestBody WebExperience webExperience) {
-        experienceService.updateExperience(userId,experienceId, webExperience);
+    @PutMapping("/user/Experience/{experienceId}")
+    public void updateExperience(@PathVariable Long experienceId, @RequestBody WebExperience webExperience) {
+        experienceService.updateExperience(experienceId, webExperience);
     }
     @DeleteMapping("/user/Experience/{id}")
     public void DeleteExperience(@PathVariable Long id) {
